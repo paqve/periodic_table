@@ -13,6 +13,11 @@ else
   fi
   echo "$GET_DATA "| while read ATOMIC_NUMBER BAR TYPE BAR ATOMIC_MASS BAR MELTING_P BAR BOILING_P BAR NO BAR SYMBOL BAR NAME
     do
-    echo -e "The element with atomic number $ATOMIC_NUMBER is $NAME ($SYMBOL). It's a $TYPE, with a mass of $ATOMIC_MASS amu. $NAME has a melting point of $MELTING_P celsius and a boiling point of $BOILING_P celsius."
+      if [[ -z $ATOMIC_NUMBER ]]
+      then 
+      echo "I could not find that element in the database."
+      else 
+      echo -e "The element with atomic number $ATOMIC_NUMBER is $NAME ($SYMBOL). It's a $TYPE, with a mass of $ATOMIC_MASS amu. $NAME has a melting point of $MELTING_P celsius and a boiling point of $BOILING_P celsius."
+      fi
     done
 fi
