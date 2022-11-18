@@ -8,11 +8,11 @@ else
 #check if input is a number
   if [[ $1 =~ [0-9]+ ]] 
   then 
-  GET_DATA=$($PSQL "SELECT * FROM properties full join elements using(atomic_number) WHERE atomic_number=$1 ")
+  GET_DATA=$($PSQL "SELECT * FROM properties full join elements using(atomic_number) left join types using(type_id)  WHERE atomic_number=$1 ")
   else
-  GET_DATA=$($PSQL "SELECT * FROM properties full join elements using(atomic_number) WHERE  symbol='$1' or name='$1' ")
+  GET_DATA=$($PSQL "SELECT * FROM properties full join elements using(atomic_number) left join types using(type_id) WHERE  symbol='$1' or name='$1' ")
   fi
-  echo "$GET_DATA "| while read ATOMIC_NUMBER BAR TYPE BAR ATOMIC_MASS BAR MELTING_P BAR BOILING_P BAR NO BAR SYMBOL BAR NAME
+  echo "$GET_DATA "| while read NO BAR ATOMIC_NUMBER BAR ATOMIC_MASS BAR MELTING_P BAR BOILING_P BAR  SYMBOL BAR NAME BAR TYPE
     do
     #check if it exist on the database
       if [[ -z $ATOMIC_NUMBER ]]
